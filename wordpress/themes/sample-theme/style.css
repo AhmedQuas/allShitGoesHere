@@ -57,6 +57,16 @@ div.clear {
     float: right;
 }
 
+#companySocials a {
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+#companySocials a:hover {
+    color: white;
+    text-decoration: none;
+}
+
 #siteLogo {
     padding: 10px;
     padding-left: 0px;
@@ -116,6 +126,119 @@ div.clear {
 }
 
 /* HOMEPAGE SECTIONS */
+
+#slider {
+    height: 600px;
+    background-image: url("img/garden.jpg");
+    background-position: bottom;
+    background-size: cover;
+}
+
+#slider h1 {
+    text-align: center;
+    color: white;
+    padding-top: 150px;
+    font-size: 80px;
+    text-shadow: 0px 3px #777;
+}
+
+.noSidebar section {
+    min-height: 300px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-top: 4px solid #0A0;
+}
+
+/* FOOTER*/
+
+footer {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    border-top: 4px solid #0A0;
+    background-color: #f3f3f3;
+    margin-top: 120px;
+}
+
+.primaryWidget {
+    display: inline-block;
+    width: 48%;
+    margin-right: 2%;
+    margin-left: -4px;
+    margin-bottom: 25px;
+}
+
+.secendaryWidget {
+    display: inline-block;
+    width: 23%;
+    margin-right: 2%;
+    margin-left: -4px;
+    margin-bottom: 25px;
+}
+
+#copyrights {
+    padding-top: 25px;
+}
+
+/*Home*/
+
+section#blog {
+    
+}
+
+div.homeBlogPost {
+    width: 300px;
+    height: 300px;
+    margin: 20px;
+    margin-top: 0px;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    background: #eee;
+    border: 1px solid gray;
+}
+
+div.mask {
+    position: absolute;
+    width: 280px;
+    height: 55px;
+    padding: 10px;
+    overflow: hidden;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    transition: all 1s;
+}
+
+div.mask h1 {
+    margin-top: 0px;
+    text-align: center;
+    min-height: 45px;
+}
+
+div.mask:hover {
+    height: 280px;
+}
+
+
+/* Page */
+
+h1.pageTitle {
+    margin: 0;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    font-size: 50px;
+    color: #fff;
+    background-color: #0A0;
+    text-shadow: 0px 3px #777;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+
+main.noSidebar article.page div.maxWidth {
+    max-width: 800px;
+    margin: auto;
+}
 
 #slider {
     height: 600px;

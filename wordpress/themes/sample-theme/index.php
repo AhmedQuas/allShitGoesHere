@@ -15,7 +15,28 @@
                 </section>
                 <section id="blog">
                     <div class="maxWidth">
-                        Tu będą najnowsze wpisy z bloga
+                        <?php if (have_posts()): ?>
+                                <?php while (have_posts()) : the_post();?>
+                                <div class='homeBlogPost'>
+                                    <?php
+                                    if (has_post_thumbnail()){
+                                        the_post_thumbnail('thumbnail');
+                                    }
+                                    ?>
+                                    <div class='mask'>
+                                        <h1><?php the_title(); ?></h1>
+                                        <span class='postDate'>
+                                            <?php // the_date();?>
+                                            <?php echo get_the_date('j F Y'); ?>
+                                        </span>
+                                        <p><?php the_excerpt(); ?></p>
+                                    </div>
+                                </div>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <h1>Nie ma jeszcze wpisow do wyswietlenia</h1>
+                            <?php endif; ?>
+                        <div class='clear'></div>
                     </div>
                 </section>
             </main>
