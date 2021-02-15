@@ -11,9 +11,19 @@ register_nav_menus( array(
 
 // Thumbnails
 
-add_theme_support('post-thumbnails');
+add_theme_support( 'post-thumbnails',array('post','page','produkt','galeria','slider') );
 add_image_size('horizontalThumb',1400,600,true);
 add_image_size('productThumb',640,480,true);
+
+// Lightbox
+
+
+add_action( 'wp_enqueue_scripts', 'enqueue_fancybox' );
+function enqueue_fancybox() {
+ wp_enqueue_style( 'lightbox-css', get_bloginfo( 'stylesheet_directory' ) . '/js/lightbox/jquery.fancybox.css?v=2.1.5.css', array() );
+ wp_enqueue_script( 'lightbox', get_bloginfo( 'stylesheet_directory' ) . '/js/lightbox/jquery.fancybox.pack.js?v=2.1.5', array( 'jquery' ), '1.3.5' );
+ wp_enqueue_script( 'lightbox-init', get_stylesheet_directory_uri() . '/js/lightbox/lightbox-init.js', array( 'lightbox' ), '1.0.0', true );
+}
 
 // Sidebar
 
@@ -256,3 +266,141 @@ function wpx_save_produkt_meta( $post_id, $post ) {
     endforeach;
 }
 add_action( 'save_post', 'wpx_save_produkt_meta', 1, 2 );
+
+// ACF Gallery
+
+if ( ! function_exists('wpx_gallery_posttype') ) {
+
+// Register Custom Post Type
+function wpx_gallery_posttype() {
+
+    $labels = array(
+        'name'                  => _x( 'Galeria', 'Post Type General Name', 'wpx' ),
+        'singular_name'         => _x( 'Galeria', 'Post Type Singular Name', 'wpx' ),
+        'menu_name'             => __( 'Galeria', 'wpx' ),
+        'name_admin_bar'        => __( 'Galeria', 'wpx' ),
+        'archives'              => __( 'Galerie', 'wpx' ),
+        'attributes'            => __( 'Atrybuty gaelerii', 'wpx' ),
+        'parent_item_colon'     => __( 'Rodzic', 'wpx' ),
+        'all_items'             => __( 'Wszystkie galerie', 'wpx' ),
+        'add_new_item'          => __( 'Dodaj nowy album', 'wpx' ),
+        'add_new'               => __( 'Dodaj album', 'wpx' ),
+        'new_item'              => __( 'Nowy album', 'wpx' ),
+        'edit_item'             => __( 'Edytuj album', 'wpx' ),
+        'update_item'           => __( 'Zaktualizuj album', 'wpx' ),
+        'view_item'             => __( 'Zobacz album', 'wpx' ),
+        'view_items'            => __( 'Zobacz albumy', 'wpx' ),
+        'search_items'          => __( 'Znajdź album', 'wpx' ),
+        'not_found'             => __( 'Nie znaleziono', 'wpx' ),
+        'not_found_in_trash'    => __( 'Nie znaleziono w koszu', 'wpx' ),
+        'featured_image'        => __( 'Zdjęcie główne albumu', 'wpx' ),
+        'set_featured_image'    => __( 'Ustaw zdjęcie główne', 'wpx' ),
+        'remove_featured_image' => __( 'Usuń zdjęcie główne', 'wpx' ),
+        'use_featured_image'    => __( 'Użyj jako zdjęcia głównego', 'wpx' ),
+        'insert_into_item'      => __( 'Wstaw do albumu', 'wpx' ),
+        'uploaded_to_this_item' => __( 'Wgraj do tego albumu', 'wpx' ),
+        'items_list'            => __( 'Lista albumów', 'wpx' ),
+        'items_list_navigation' => __( 'Nawigacja listy albumów', 'wpx' ),
+        'filter_items_list'     => __( 'Filtruj albumy', 'wpx' ),
+    );
+    $args = array(
+        'label'                 => __( 'Galeria', 'wpx' ),
+        'description'           => __( 'Galeria', 'wpx' ),
+        'labels'                => $labels,
+        'supports'              => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
+        'taxonomies'            => array( '' ),
+        'hierarchical'          => true,
+        'public'                => true,
+        'show_ui'               => true,
+        'show_in_menu'          => true,
+        'menu_position'         => 20,
+        'menu_icon'             => 'dashicons-format-image',
+        'show_in_admin_bar'     => true,
+        'show_in_nav_menus'     => true,
+        'can_export'            => true,
+        'has_archive'           => true,
+        'exclude_from_search'   => false,
+        'publicly_queryable'    => true,
+        'capability_type'       => 'page',
+    );
+    register_post_type( 'galeria', $args );
+
+}
+add_action( 'init', 'wpx_gallery_posttype', 0 );
+
+}
+
+// ACF Slider
+
+if ( ! function_exists('wpx_slider_posttype') ) {
+
+// Register Custom Post Type
+function wpx_slider_posttype() {
+
+    $labels = array(
+        'name'                  => _x( 'Slider', 'Post Type General Name', 'wpx' ),
+        'singular_name'         => _x( 'Slider', 'Post Type Singular Name', 'wpx' ),
+        'menu_name'             => __( 'Slider', 'wpx' ),
+        'name_admin_bar'        => __( 'Slider', 'wpx' ),
+        'archives'              => __( 'Slider', 'wpx' ),
+        'attributes'            => __( 'Atrybuty slajdu', 'wpx' ),
+        'parent_item_colon'     => __( 'Rodzic', 'wpx' ),
+        'all_items'             => __( 'Wszystkie slajdy', 'wpx' ),
+        'add_new_item'          => __( 'Dodaj nowy slajd', 'wpx' ),
+        'add_new'               => __( 'Dodaj slajd', 'wpx' ),
+        'new_item'              => __( 'Nowy slajd', 'wpx' ),
+        'edit_item'             => __( 'Edytuj slajd', 'wpx' ),
+        'update_item'           => __( 'Zaktualizuj slajd', 'wpx' ),
+        'view_item'             => __( 'Zobacz slajd', 'wpx' ),
+        'view_items'            => __( 'Zobacz slajdy', 'wpx' ),
+        'search_items'          => __( 'Znajdź slajd', 'wpx' ),
+        'not_found'             => __( 'Nie znaleziono', 'wpx' ),
+        'not_found_in_trash'    => __( 'Nie znaleziono w koszu', 'wpx' ),
+        'featured_image'        => __( 'Zdjęcie główne slajdu', 'wpx' ),
+        'set_featured_image'    => __( 'Ustaw zdjęcie główne', 'wpx' ),
+        'remove_featured_image' => __( 'Usuń zdjęcie główne', 'wpx' ),
+        'use_featured_image'    => __( 'Użyj jako zdjęcia głównego', 'wpx' ),
+        'insert_into_item'      => __( 'Wstaw do slajdu', 'wpx' ),
+        'uploaded_to_this_item' => __( 'Wgraj do tego slajdu', 'wpx' ),
+        'items_list'            => __( 'Lista slajdów', 'wpx' ),
+        'items_list_navigation' => __( 'Nawigacja listy slajdów', 'wpx' ),
+        'filter_items_list'     => __( 'Filtruj slajdy', 'wpx' ),
+    );
+    $args = array(
+        'label'                 => __( 'Slider', 'wpx' ),
+        'description'           => __( 'Slider', 'wpx' ),
+        'labels'                => $labels,
+        'supports'              => array( 'title', 'thumbnail'),
+        'taxonomies'            => array( '' ),
+        'hierarchical'          => true,
+        'public'                => true,
+        'show_ui'               => true,
+        'show_in_menu'          => true,
+        'menu_position'         => 20,
+        'menu_icon'             => 'dashicons-format-image',
+        'show_in_admin_bar'     => true,
+        'show_in_nav_menus'     => true,
+        'can_export'            => true,
+        'has_archive'           => true,
+        'exclude_from_search'   => false,
+        'publicly_queryable'    => true,
+        'capability_type'       => 'page',
+    );
+    register_post_type( 'slider', $args );
+
+}
+add_action( 'init', 'wpx_slider_posttype', 0 );
+
+}
+
+// Load slider carousel js
+
+add_action( 'wp_enqueue_scripts', 'enqueue_owl' );
+
+function enqueue_owl() {
+    wp_enqueue_style( 'owl-css', get_bloginfo( 'stylesheet_directory' ) . '/js/owl/dist/assets/owl.carousel.min.css', array() );
+    wp_enqueue_style( 'owl-css2', get_bloginfo( 'stylesheet_directory' ) . '/js/owl/dist/assets/owl.theme.default.min.css', array() );
+    
+    wp_enqueue_script( 'owl', get_bloginfo( 'stylesheet_directory' ) . '/js/owl/dist/owl.carousel.min.js', array( 'jquery' ), '1.3.5' );
+    wp_enqueue_script( 'owl-init', get_stylesheet_directory_uri() . '/js/owl/owl-init.js', array( 'lightbox' ), '1.0.0', true );
+}

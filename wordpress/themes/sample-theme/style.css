@@ -80,7 +80,9 @@ div.clear {
 
 #siteLogo img{
     float: left;
-    height: 100px;
+    height: 50px;
+    margin-top: 25px;
+    margin-right: 25px;
 }
 
 #siteLogo h1 {
@@ -132,18 +134,35 @@ div.clear {
 /* HOMEPAGE SECTIONS */
 
 #slider {
-    height: 600px;
+    padding: 0;
+}
+
+.slide {
     background-image: url("img/garden.jpg");
     background-position: bottom;
     background-size: cover;
+    z-index: 100;
 }
 
-#slider h1 {
+.slide h1 {
     text-align: center;
     color: white;
-    padding-top: 150px;
+    padding-top: 30vh;
+    padding-bottom: 30vh;
     font-size: 80px;
     text-shadow: 0px 3px #777;
+    margin: 0;
+}
+
+.owl-dots {
+        position: absolute;
+    bottom: 25px;
+    width: 10vw;
+    left: 45vw;
+}
+
+.owl-dots .active span{
+    background: #0A0 !important;
 }
 
 .noSidebar section {
@@ -151,6 +170,10 @@ div.clear {
     padding-top: 50px;
     padding-bottom: 50px;
     border-top: 4px solid #0A0;
+}
+
+h1.sectionTitle {
+    margin-top: -25px;
 }
 
 /* FOOTER*/
@@ -419,4 +442,102 @@ h3#reply-title {
     padding-left: 15px;
     padding-right: 15px;
     margin-left: 25px;
+}
+
+div.wievAllButton {
+    text-align: center;
+    background: #0A0;
+    color: white;
+}
+
+div.wievAllButton svg{
+    font-size: 8em !important;
+    margin-top: 50px!important;
+}
+
+.homeTile {
+    width: 300px;
+    min-height: 300px;
+    margin: 40px;
+    margin-left: 0;
+    margin-top: 50px;
+    float: left;
+}
+
+
+.homeTile img {
+    width: 150px;
+    height: 150px;
+    margin-left: 75px;
+}
+
+.homeTile h2 {
+    text-align: center;
+}
+
+
+a.moreButton {
+    display: block;
+    padding: 5px;
+    border: 1px solid #0A0;
+    color: #0A0;
+    background: white;
+    text-align: center;
+    transition: all 1s;
+}
+
+a.moreButton:hover {
+    color: white;
+    background: #0A0;
+    text-decoration: none;
+}
+
+a.galleryItem {
+    display: inline-block;
+    height: 209px;
+    position: relative;
+    margin-top: 2%;
+    margin-right: 2%;
+    margin-left: 0;
+    width: 31%;
+    border-bottom: 3px solid #0A0;
+}
+
+.galleryMask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    text-align: center;
+    padding-top: 50px;
+    height: 159px;
+    display: none;
+    transition: all 1s;
+}
+
+.galleryMask svg {
+    font-size: 7em;
+    text-align: center;
+    color: white;
+}
+
+a.galleryItem:hover .galleryMask {
+    display: block;
+}
+
+a.galleryItemAlt {
+    float: left;
+    position: relative;
+    margin-top: 0;
+    width: 25%;
+    margin-bottom: -4px;
+}
+
+a.galleryItemAlt .galleryMask {
+    padding-top: 100px;
+    height: 212px;
+}
+
+a.galleryItemAlt:hover .galleryMask {
+    display: block;
 }
