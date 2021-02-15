@@ -6,10 +6,12 @@
                 <?php while(have_posts()): the_post(); ?>
                     <h1 class='pageTitle'><?php the_title(); ?></h1>
                     <div class='maxWidth'>
-                        <div class='pageContent'>
+                        <div class='contactLeft'>
+                            <?php echo do_shortcode('[contact-form-7 id="22" title="Formularz 1"]'); ?>
+                        </div>
+                        <div class='contactRight'>
                             <?php the_content(); ?>
                         </div>
-                        <?php get_sidebar(); ?>
                     </div>
                 <?php endwhile; ?>
             <?php else: ?>

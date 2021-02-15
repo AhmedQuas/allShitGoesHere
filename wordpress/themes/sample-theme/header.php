@@ -6,7 +6,8 @@
     <link rel='stylesheet' href='<?php bloginfo('template_directory'); ?>/css/basic.css' type='text/css' media='all' />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
-    <?php wp_head(); ?>     
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+    <?php wp_head(); ?>
 </head>
 <body>
     <div id="page">
@@ -17,7 +18,9 @@
                         Zadzwoń do nas: NUMER TELEFONU
                     </div>
                     <div id="companySocials">
-                        Linki społecznościowe
+                        <a href=''>
+                            <i class='fab fa-facebook'></i>
+                        </a>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -33,17 +36,15 @@
                             </hgroup>
                         </a>
                     </div>
-                    <nav id="mainMenu">
-                        <ul>
-                            <li><a href="#">Strona główna</a></li>
-                            <li><a href="#">O nas</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Produkty</a></li>
-                            <li><a href="#">Kontakt</a></li>
-                        </ul>
-                    </nav>
+                    
+                    <?php wp_nav_menu( array(
+                        'theme_location' => 'primary',
+                        'container' => 'nav',
+                        'container_id' => 'mainMenu'
+                        )); ?>
+
                     <div id="searchForm">
-                        Tu będzie wyszukiwarka
+                        <?php get_search_form(); ?>
                     </div>
                     <div class="clear"></div>
                 </div>

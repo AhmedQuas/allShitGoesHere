@@ -1,3 +1,7 @@
+<?php
+/* Template name: Bez paska bocznego*/
+?>
+
 <?php get_header();?>
     
     <main class="noSidebar">
@@ -6,10 +10,7 @@
                 <?php while(have_posts()): the_post(); ?>
                     <h1 class='pageTitle'><?php the_title(); ?></h1>
                     <div class='maxWidth'>
-                        <div class='pageContent'>
-                            <?php the_content(); ?>
-                        </div>
-                        <?php get_sidebar(); ?>
+                        <?php the_content(); ?>
                     </div>
                 <?php endwhile; ?>
             <?php else: ?>
