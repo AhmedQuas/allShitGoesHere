@@ -24,7 +24,11 @@
                                     }
                                     ?>
                                     <div class='mask'>
-                                        <h1><?php the_title(); ?></h1>
+                                        <h1>
+                                            <a href='<?php the_permalink(); ?>'>
+                                                <?php the_title(); ?>
+                                            </a>
+                                        </h1>
                                         <span class='postDate'>
                                             <?php // the_date();?>
                                             <?php echo get_the_date('j F Y'); ?>

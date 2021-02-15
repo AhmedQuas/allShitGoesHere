@@ -12,6 +12,7 @@ register_nav_menus( array(
 // Thumbnails
 
 add_theme_support('post-thumbnails');
+add_image_size('horizontalThumb',1400,600,true);
 
 // Sidebar
 
