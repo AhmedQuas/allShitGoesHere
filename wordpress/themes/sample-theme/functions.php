@@ -404,3 +404,72 @@ function enqueue_owl() {
     wp_enqueue_script( 'owl', get_bloginfo( 'stylesheet_directory' ) . '/js/owl/dist/owl.carousel.min.js', array( 'jquery' ), '1.3.5' );
     wp_enqueue_script( 'owl-init', get_stylesheet_directory_uri() . '/js/owl/owl-init.js', array( 'lightbox' ), '1.0.0', true );
 }
+
+// Theme customizer
+
+function wpx_theme_customizer( $wp_customize ) {
+    $wp_customize->add_section( 'wpx_logo_section' , array(
+    'title'       => __( 'Logo', 'wpx' ),
+    'priority'    => 30,
+    'description' => 'Logo serwisu',
+    ) );
+    
+    $wp_customize->add_setting( 'wpx_logo' );
+    
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'wpx_logo', array(
+    'label'    => __( 'Logo', 'wpx' ),
+    'section'  => 'wpx_logo_section',
+    'settings' => 'wpx_logo',
+) ) );
+    
+    $wp_customize->add_section( 'wpx_social_section' , array(
+    'title'       => __( 'Linki społecznościowe', 'wpx' ),
+    'priority'    => 30,
+    'description' => 'Linki społecznościowe',
+    ) );
+    
+    $wp_customize->add_setting( 'wpx_fb' );
+    $wp_customize->add_setting( 'wpx_tw' );
+    $wp_customize->add_setting( 'wpx_inst' );
+    
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'wpx_fb', array(
+    'label'    => __( 'Facebook', 'wpx' ),
+    'section'  => 'wpx_social_section',
+    'settings' => 'wpx_fb',
+) ) );
+    
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'wpx_tw', array(
+    'label'    => __( 'Twitter', 'wpx' ),
+    'section'  => 'wpx_social_section',
+    'settings' => 'wpx_tw',
+) ) );
+    
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'wpx_inst', array(
+    'label'    => __( 'Instagram', 'wpx' ),
+    'section'  => 'wpx_social_section',
+    'settings' => 'wpx_inst',
+) ) );
+    
+}
+add_action( 'customize_register', 'wpx_theme_customizer' ); 
+
+
+// Own Product shortcode
+
+
+function wpx_product_shortcode($atts){
+    $postID = $atts[id];
+    $content = "<div class = 'product'>";
+    $content .= "<h1>".get_the_title($postID)."</h1>";
+    if ( has_post_thumbnail($postID) ) {
+       $content .= get_the_post_thumbnail($postID,"thumbnail");
+    } 
+    $link = get_the_permalink($postID);
+    $price = get_post_meta($postID,"wpx_price",true);
+    $content .= "<span class = 'price'>$price PLN</span>";
+    $content .= "<a href = $link class = 'moreButton'>Zobacz ten produkt!</a>";
+    $content .= "</div>";
+    return $content;
+}
+
+add_shortcode("produkt","wpx_product_shortcode");

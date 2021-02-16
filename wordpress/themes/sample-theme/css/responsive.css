@@ -1,0 +1,53 @@
+@media (max-width: 1400px)  {
+    div.maxWidth {
+        max-width: 90%;
+    }
+    
+    #showSearchForm {
+        display: block;
+        position: absolute;
+        right: 50px;
+        top: 90px;
+    }
+    
+    #searchForm {
+        display: none;
+        position: absolute;
+        z-index: 100;
+        background: white;
+        border: 1px solid #0A0;
+        padding: 10px;
+        margin-top: 3px;
+        right: 0;
+    }
+}
+
+@media (max-width: 1200px)  {
+    #mainMenu {
+        display: none;
+    }
+    
+    #mainMenu ul.menu {
+        position: absolute;
+        background: white;
+        z-index: 100;
+        margin-top: 4px;
+        width: 100%;
+        padding: 0;
+        left: 0px;
+        text-align: center;
+    }
+    
+    #mainMenu ul.menu li{
+        display: block;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-top: 1px solid #0A0;
+    }
+    
+    
+    
+    #mobileMenu {
+        display: block;
+    }
+}
