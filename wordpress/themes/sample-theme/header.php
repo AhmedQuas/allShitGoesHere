@@ -56,8 +56,8 @@
                         <?php } ?>
                         
                         <hgroup>
-                            <h1>Firma krzak</h1>
-                            <h2>Dbamy o zieleń od 1995 roku!</h2>
+                            <h1><?php bloginfo('name'); ?></h1>
+                            <h2><?php bloginfo('description'); ?></h2>
                         </hgroup>
                     </a>
                 </div>

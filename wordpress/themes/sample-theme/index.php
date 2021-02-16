@@ -66,7 +66,7 @@
                             <h2><?php the_title();?></h2>
                         </a>
                         <?php the_excerpt()?>
-                        <a class="moreButton" href="<?php the_permalink();?>">Dowiedz się więcej</a>
+                        <a class="moreButton" href="<?php the_permalink();?>"><?php _e('Dowiedz się więcej','wpx_theme'); ?></a>
                     </div>
                 <?php endwhile; ?>
                 <div class="clear"></div>
