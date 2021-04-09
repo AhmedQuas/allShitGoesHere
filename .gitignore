@@ -7,3 +7,4 @@ db.sqlite3
 db.sqlite3-journal
 media
 django_polls_project/polls/migrations/*
+*/.vscode/*
