@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from typing import Optional
+from pydantic import BaseModel
 
 #API documentation is accessible by /doc or /redoc path
 app = FastAPI()
@@ -35,4 +36,13 @@ def show_blog_post(id: int):
 def show_blog_post_comments(id: str):
     #fetch comments from given post
     return {'data':{'1','2'}}
-    
+
+class Blog(BaseModel):
+    title: str
+    body: str
+    published: Optional[bool] = True
+
+
+@app.post('/blog')
+def create_post(blog: Blog):
+    return {'data':f'Blog is created with title as {blog.title}'}
