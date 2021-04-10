@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from typing import Optional
 
 #API documentation is accessible by /doc or /redoc path
 app = FastAPI()
@@ -10,6 +11,14 @@ def index():
 @app.get('/about')
 def about():
     return {'data':{'about page'}}
+
+#Query parameters
+@app.get('/blog')
+def blog(limit: int = 10, published: bool = True, sort: Optional[str] = None):
+    if published:
+        return {'data': f'{limit} published blogs from the db'}
+    else:
+        return {'data': f'{limit} all blogs from the db'}
 
 #Path are processing from top to down
 @app.get('/blog/unpublished')
