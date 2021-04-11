@@ -1,0 +1,1 @@
+Python FastAPI simple project from YT/Bitfumes/FastAPI - A python framework | Full Course
