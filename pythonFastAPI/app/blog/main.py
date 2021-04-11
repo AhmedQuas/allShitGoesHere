@@ -3,9 +3,12 @@ from fastapi import FastAPI, Depends, status, Response, HTTPException
 from . import schemas, models
 from .database import engine, sessionLocal
 from sqlalchemy.orm import Session
+from passlib.context import CryptContext
+from .hashing import Hash
 
 app = FastAPI()
 
+#Whenever we find some find any model we will create in on db
 models.Base.metadata.create_all(engine)
 
 def get_db():
@@ -24,7 +27,7 @@ def create(request: schemas.Blog, db: Session = Depends(get_db)):
     return new_blog
 
 @app.delete('/blog/{id}', status_code = status.HTTP_204_NO_CONTENT)
-def destroy_blog(id, db: Session = Depends(get_db)):
+def destroy_blog(id: int, db: Session = Depends(get_db)):
     blog = db.query(models.Blog).filter(models.Blog.id == id)
 
     if not blog.first():
@@ -36,7 +39,7 @@ def destroy_blog(id, db: Session = Depends(get_db)):
     return 'done'
 
 @app.put('/blog/{id}', status_code = status.HTTP_202_ACCEPTED)
-def update_blog(id, request: schemas.Blog, db: Session = Depends(get_db)):
+def update_blog(id: int, request: schemas.Blog, db: Session = Depends(get_db)):
     blog = db.query(models.Blog).filter(models.Blog.id == id)
     
     if not blog.first():
@@ -56,7 +59,7 @@ def show_all_blogs(db: Session = Depends(get_db)):
     return blogs
 
 @app.get('/blog/{id}', status_code = status.HTTP_200_OK, response_model = schemas.ShowBlog)
-def show_single_blog(id, response: Response ,db: Session = Depends(get_db)):
+def show_single_blog(id: int, response: Response ,db: Session = Depends(get_db)):
     blog = db.query(models.Blog).filter(models.Blog.id == id).first()
     
     if not blog:
@@ -68,7 +71,7 @@ def show_single_blog(id, response: Response ,db: Session = Depends(get_db)):
     return blog
 
 @app.get('/blog/{id}/title', status_code = status.HTTP_200_OK, response_model = schemas.ShowBlogTitle)
-def show_single_blog_title(id, response: Response ,db: Session = Depends(get_db)):
+def show_single_blog_title(id: int, response: Response ,db: Session = Depends(get_db)):
     blog = db.query(models.Blog).filter(models.Blog.id == id).first()
     
     if not blog:
@@ -78,3 +81,25 @@ def show_single_blog_title(id, response: Response ,db: Session = Depends(get_db)
         #return {'detail': f'Blog with the id {id} is not avaiable'}
     
     return blog
+
+@app.post('/user', status_code = status.HTTP_201_CREATED, response_model = schemas.ShowUser)
+def create_user(request: schemas.User, db: Session = Depends(get_db)):
+    new_user = models.User(
+       name = request.name,
+       email = request.email,
+       password = Hash.bcrypt(request.password)
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
+
+@app.get('/user/{id}', response_model = schemas.ShowUser)
+def get_user(id: int, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.id == id).first()
+
+    if not user:
+        raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, 
+            detail = f'User with the id {id} is not avaiable')
+
+    return user
