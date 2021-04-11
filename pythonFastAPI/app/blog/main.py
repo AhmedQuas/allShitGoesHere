@@ -8,7 +8,7 @@ from .hashing import Hash
 
 app = FastAPI()
 
-#Whenever we find some find any model we will create in on db
+#Whenever we find some find any model we will create it on db
 models.Base.metadata.create_all(engine)
 
 def get_db():
@@ -18,7 +18,7 @@ def get_db():
     finally:
         db.close()
 
-@app.post('/blog', status_code = status.HTTP_201_CREATED)
+@app.post('/blog', status_code = status.HTTP_201_CREATED, tags=['Blogs'])
 def create(request: schemas.Blog, db: Session = Depends(get_db)):
     new_blog = models.Blog(title=request.title, body=request.body)
     db.add(new_blog)
@@ -26,7 +26,7 @@ def create(request: schemas.Blog, db: Session = Depends(get_db)):
     db.refresh(new_blog)
     return new_blog
 
-@app.delete('/blog/{id}', status_code = status.HTTP_204_NO_CONTENT)
+@app.delete('/blog/{id}', status_code = status.HTTP_204_NO_CONTENT, tags=['Blogs'])
 def destroy_blog(id: int, db: Session = Depends(get_db)):
     blog = db.query(models.Blog).filter(models.Blog.id == id)
 
@@ -38,7 +38,7 @@ def destroy_blog(id: int, db: Session = Depends(get_db)):
     db.commit()
     return 'done'
 
-@app.put('/blog/{id}', status_code = status.HTTP_202_ACCEPTED)
+@app.put('/blog/{id}', status_code = status.HTTP_202_ACCEPTED, tags=['Blogs'])
 def update_blog(id: int, request: schemas.Blog, db: Session = Depends(get_db)):
     blog = db.query(models.Blog).filter(models.Blog.id == id)
     
@@ -53,12 +53,12 @@ def update_blog(id: int, request: schemas.Blog, db: Session = Depends(get_db)):
     db.commit()
     return 'updated'
 
-@app.get('/blog', response_model = List[schemas.ShowBlog])
+@app.get('/blog', response_model = List[schemas.ShowBlog], tags=['Blogs'])
 def show_all_blogs(db: Session = Depends(get_db)):
     blogs = db.query(models.Blog).all()
     return blogs
 
-@app.get('/blog/{id}', status_code = status.HTTP_200_OK, response_model = schemas.ShowBlog)
+@app.get('/blog/{id}', status_code = status.HTTP_200_OK, response_model = schemas.ShowBlog, tags=['Blogs'])
 def show_single_blog(id: int, response: Response ,db: Session = Depends(get_db)):
     blog = db.query(models.Blog).filter(models.Blog.id == id).first()
     
@@ -70,7 +70,7 @@ def show_single_blog(id: int, response: Response ,db: Session = Depends(get_db))
     
     return blog
 
-@app.get('/blog/{id}/title', status_code = status.HTTP_200_OK, response_model = schemas.ShowBlogTitle)
+@app.get('/blog/{id}/title', status_code = status.HTTP_200_OK, response_model = schemas.ShowBlogTitle, tags=['Blogs'])
 def show_single_blog_title(id: int, response: Response ,db: Session = Depends(get_db)):
     blog = db.query(models.Blog).filter(models.Blog.id == id).first()
     
@@ -82,7 +82,7 @@ def show_single_blog_title(id: int, response: Response ,db: Session = Depends(ge
     
     return blog
 
-@app.post('/user', status_code = status.HTTP_201_CREATED, response_model = schemas.ShowUser)
+@app.post('/user', status_code = status.HTTP_201_CREATED, response_model = schemas.ShowUser, tags=['Users'])
 def create_user(request: schemas.User, db: Session = Depends(get_db)):
     new_user = models.User(
        name = request.name,
@@ -94,7 +94,7 @@ def create_user(request: schemas.User, db: Session = Depends(get_db)):
     db.refresh(new_user)
     return new_user
 
-@app.get('/user/{id}', response_model = schemas.ShowUser)
+@app.get('/user/{id}', response_model = schemas.ShowUser, tags=['Users'])
 def get_user(id: int, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.id == id).first()
 
