@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel
 
 #Model in pydantic is called schema
@@ -46,3 +46,10 @@ class ShowBlog(Blog):
 class Login(BaseModel):
     username: str
     password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    username: Optional[str] = None
